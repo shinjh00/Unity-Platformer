@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float jumpSpeed;
 
+    [SerializeField] LayerMask groundCheckLayer;
+
     private Vector2 moveDir;
     private bool isGround;
 
@@ -93,13 +95,38 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    // 복합충돌체 구현 시에는
+    //private int groundCount;
+    // 실행코드에서 groundCount++; groundCount--; 사용
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        isGround = true;  // 부딪히는 것에 진입했으면
+        if (groundCheckLayer.Contain(collision.gameObject.layer))
+        {
+            // 트리거가 되면 true로
+            isGround = true;
+            animator.SetBool("IsGround", isGround);
+            Debug.Log("땅 밟음");
+
+            int layerNum = collision.gameObject.layer;
+            Debug.Log(layerNum);
+            Debug.Log(groundCheckLayer);
+            int layerMaskNum = (1 << layerNum) & groundCheckLayer;
+
+
+
+
+        }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        isGround = false;  // 부딪히는 것에서 떨어졌으면
+        if (groundCheckLayer.Contain(collision.gameObject.layer))
+        {
+            // 트리거에서 나가면 false로
+            isGround = false;
+            animator.SetBool("IsGround", isGround);
+            Debug.Log("땅에서 벗어남");
+        }
     }
 }
