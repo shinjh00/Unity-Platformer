@@ -9,7 +9,7 @@ public static class Extension
 
     // 어떤 기능을 특정한 레이어에만 적용할 수 있게 오브젝트를 구분
     // 해당 레이어 값이 꺼져있으면 0, 켜져있으면 1
-    // LayerMask layerMask : 32비트의 int형 구조체 (1,3,6번 레이어 체크 -> 1001010)
+    // LayerMask layerMask : 32비트의 int형 구조체 (1,3,6번 레이어 체크 -> 0000(*6개) 0100 1010)
     // int layer : 레이어 번호
 
     // = 메소드 =
@@ -24,6 +24,10 @@ public static class Extension
     // 3. 확인할 레이어 자리가 1인지 확인 (0이 아닌지 확인)
 
     // layerMask.Contain(layer)
+
+    // 복합충돌체 구현 시에는
+    //private int groundCount;
+    // 실행코드에서 groundCount++; groundCount--; 사용
 
     /* n번 레이어 포함 여부 확인 */
 

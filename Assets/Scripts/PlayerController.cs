@@ -95,10 +95,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // 복합충돌체 구현 시에는
-    //private int groundCount;
-    // 실행코드에서 groundCount++; groundCount--; 사용
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (groundCheckLayer.Contain(collision.gameObject.layer))
